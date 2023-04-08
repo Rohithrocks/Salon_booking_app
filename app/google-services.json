@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "121590524526",
+    "project_id": "bmlsalon-20b0a",
+    "storage_bucket": "bmlsalon-20b0a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:121590524526:android:c83c0ef8976f155d91947f",
+        "android_client_info": {
+          "package_name": "com.example.bmlsalon"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "121590524526-kriejs8tfd8aikqvvam8j6ap3hcp4pbi.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAtPlPhvYzypEgEvqSlO-XPYokZjxUGbRQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "121590524526-kriejs8tfd8aikqvvam8j6ap3hcp4pbi.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
