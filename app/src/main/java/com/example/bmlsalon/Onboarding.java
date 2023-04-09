@@ -1,17 +1,10 @@
 package com.example.bmlsalon;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.cardview.widget.CardView;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
-
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -19,11 +12,20 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.VideoView;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
+
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.HashMap;
 
 public class Onboarding extends AppCompatActivity implements View.OnClickListener {
 
@@ -33,9 +35,12 @@ public class Onboarding extends AppCompatActivity implements View.OnClickListene
 
     private CardView logincard,forgetpasscard,signupcard,passcard;
 
-    private EditText namesignup,emailsignup,phonenumber,enterpass_signup,re_enterpass_signup,email_login,password_login;
+    private EditText namesignup,emailsignup,phonenumber,enterpass_signup,re_enterpass_signup,email_login,password_login,signup_name;
 
     private String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
+
+    private FirebaseDatabase firebaseDatabase;
+    private DatabaseReference databaseReference;
 
     ProgressDialog progressDialog;
 
@@ -49,6 +54,9 @@ public class Onboarding extends AppCompatActivity implements View.OnClickListene
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_onboarding);
 
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        databaseReference = firebaseDatabase.getReference();
+
         getstarted = findViewById(R.id.getstarted);
         videoView = findViewById(R.id.video_bg);
         logincard = findViewById(R.id.login_card);
@@ -56,7 +64,7 @@ public class Onboarding extends AppCompatActivity implements View.OnClickListene
         forgetpasscard = findViewById(R.id.forget_password_card);
         signupforgetpass=findViewById(R.id.signUp_btn_forgotPassword);
         signupcard = findViewById(R.id.signup_card);
-        loginsignupcard=findViewById(R.id.logIn_btn_signUp);
+        loginsignupcard=findViewById(R.id.logIn_btn_signUp); //login button
         namesignup=findViewById(R.id.signup_name);
         emailsignup=findViewById(R.id.signup_email);
         phonenumber=findViewById(R.id.signup_phone_number);
@@ -71,6 +79,7 @@ public class Onboarding extends AppCompatActivity implements View.OnClickListene
         password_login=findViewById(R.id.password);
         continue_btn= findViewById(R.id.continue_btn);
         user_login=findViewById(R.id.login_button);
+        signup_name=findViewById(R.id.signup_name);
 
         getstarted.setOnClickListener(this);
         logincard.setOnClickListener(this);
@@ -78,7 +87,22 @@ public class Onboarding extends AppCompatActivity implements View.OnClickListene
         forgetpasscard.setOnClickListener(this);
         signupforgetpass.setOnClickListener(this);
         signupcard.setOnClickListener(this);
-        loginsignupcard.setOnClickListener(this);
+        loginsignupcard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String getName = signup_name.getText().toString();
+                String getEmail = emailsignup.getText().toString();
+
+                HashMap<String,Object> hashMap = new HashMap<>();
+                hashMap.put("Username", getName);
+                hashMap.put("Email",getEmail);
+
+                databaseReference.child("Users")
+                        .child(getName)
+                        .setValue(hashMap);
+
+            }
+        });
         namesignup.setOnClickListener(this);
         emailsignup.setOnClickListener(this);
         phonenumber.setOnClickListener(this);
@@ -93,6 +117,11 @@ public class Onboarding extends AppCompatActivity implements View.OnClickListene
         password_login.setOnClickListener(this);
         continue_btn.setOnClickListener(this);
         user_login.setOnClickListener(this);
+
+
+
+
+
 
         progressDialog=new ProgressDialog(this);
 
@@ -110,6 +139,9 @@ public class Onboarding extends AppCompatActivity implements View.OnClickListene
             }
         });
     }
+
+
+
 
 
 
