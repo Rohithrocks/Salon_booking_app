@@ -1,10 +1,17 @@
 package com.example.bmlsalon;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
+
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -29,13 +36,13 @@ import java.util.HashMap;
 
 public class Onboarding extends AppCompatActivity implements View.OnClickListener {
 
-    private Button getstarted,signupforgetpass,next,passlogin,signup_login,continue_btn,user_login;
+    private Button getstarted,signupforgetpass,next,passlogin,signup_login,continue_btn,user_login,forgotpass_link;
 
     private TextView forgetpasstext,loginsignupcard,back_pass;
 
     private CardView logincard,forgetpasscard,signupcard,passcard;
 
-    private EditText namesignup,emailsignup,phonenumber,enterpass_signup,re_enterpass_signup,email_login,password_login,signup_name;
+    private EditText namesignup,emailsignup,phonenumber,enterpass_signup,re_enterpass_signup,email_login,password_login,forgetpass_email,signup_name;
 
     private String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
 
@@ -64,7 +71,7 @@ public class Onboarding extends AppCompatActivity implements View.OnClickListene
         forgetpasscard = findViewById(R.id.forget_password_card);
         signupforgetpass=findViewById(R.id.signUp_btn_forgotPassword);
         signupcard = findViewById(R.id.signup_card);
-        loginsignupcard=findViewById(R.id.logIn_btn_signUp); //login button
+        loginsignupcard=findViewById(R.id.logIn_btn_signUp);
         namesignup=findViewById(R.id.signup_name);
         emailsignup=findViewById(R.id.signup_email);
         phonenumber=findViewById(R.id.signup_phone_number);
@@ -80,6 +87,8 @@ public class Onboarding extends AppCompatActivity implements View.OnClickListene
         continue_btn= findViewById(R.id.continue_btn);
         user_login=findViewById(R.id.login_button);
         signup_name=findViewById(R.id.signup_name);
+        forgetpass_email=findViewById(R.id.forgot_pass_email);
+        forgotpass_link=findViewById(R.id.send_link_btn);
 
         getstarted.setOnClickListener(this);
         logincard.setOnClickListener(this);
@@ -117,6 +126,8 @@ public class Onboarding extends AppCompatActivity implements View.OnClickListene
         password_login.setOnClickListener(this);
         continue_btn.setOnClickListener(this);
         user_login.setOnClickListener(this);
+        forgetpass_email.setOnClickListener(this);
+        forgotpass_link.setOnClickListener(this);
 
 
 
@@ -139,9 +150,6 @@ public class Onboarding extends AppCompatActivity implements View.OnClickListene
             }
         });
     }
-
-
-
 
 
 
@@ -210,8 +218,34 @@ public class Onboarding extends AppCompatActivity implements View.OnClickListene
             case(R.id.login_button):
                 PerformLogin();
                 break;
+            case(R.id.send_link_btn):
+                ValidateData();
+                break;
         }
 
+    }
+
+    private void ValidateData() {
+        String ForgotMail = forgetpass_email.getText().toString();
+        if(ForgotMail.isEmpty()){
+            forgetpass_email.setError("Please Enter an Email");
+            Toast.makeText(Onboarding.this, "Please Enter an Email", Toast.LENGTH_SHORT).show();
+        }
+        else{
+            mAuth.sendPasswordResetEmail(ForgotMail).addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                    if(task.isSuccessful()){
+                        Toast.makeText(Onboarding.this, "Check your mail", Toast.LENGTH_SHORT).show();
+                        finish();
+                    }
+                    else{
+                        Toast.makeText(Onboarding.this, "Error: "+task.getException(), Toast.LENGTH_SHORT).show();
+
+                    }
+                }
+            });
+        }
     }
 
     private void PerformLogin() {
