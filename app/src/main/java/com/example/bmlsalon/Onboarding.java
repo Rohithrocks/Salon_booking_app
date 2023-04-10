@@ -27,13 +27,13 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class Onboarding extends AppCompatActivity implements View.OnClickListener {
 
-    private Button getstarted,signupforgetpass,next,passlogin,signup_login,continue_btn,user_login;
+    private Button getstarted,signupforgetpass,next,passlogin,signup_login,continue_btn,user_login,forgotpass_link;
 
     private TextView forgetpasstext,loginsignupcard,back_pass;
 
     private CardView logincard,forgetpasscard,signupcard,passcard;
 
-    private EditText namesignup,emailsignup,phonenumber,enterpass_signup,re_enterpass_signup,email_login,password_login;
+    private EditText namesignup,emailsignup,phonenumber,enterpass_signup,re_enterpass_signup,email_login,password_login,forgetpass_email;
 
     private String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
 
@@ -71,6 +71,8 @@ public class Onboarding extends AppCompatActivity implements View.OnClickListene
         password_login=findViewById(R.id.password);
         continue_btn= findViewById(R.id.continue_btn);
         user_login=findViewById(R.id.login_button);
+        forgetpass_email=findViewById(R.id.forgot_pass_email);
+        forgotpass_link=findViewById(R.id.send_link_btn);
 
         getstarted.setOnClickListener(this);
         logincard.setOnClickListener(this);
@@ -93,6 +95,8 @@ public class Onboarding extends AppCompatActivity implements View.OnClickListene
         password_login.setOnClickListener(this);
         continue_btn.setOnClickListener(this);
         user_login.setOnClickListener(this);
+        forgetpass_email.setOnClickListener(this);
+        forgotpass_link.setOnClickListener(this);
 
         progressDialog=new ProgressDialog(this);
 
@@ -178,8 +182,34 @@ public class Onboarding extends AppCompatActivity implements View.OnClickListene
             case(R.id.login_button):
                 PerformLogin();
                 break;
+            case(R.id.send_link_btn):
+                ValidateData();
+                break;
         }
 
+    }
+
+    private void ValidateData() {
+        String ForgotMail = forgetpass_email.getText().toString();
+        if(ForgotMail.isEmpty()){
+            forgetpass_email.setError("Please Enter an Email");
+            Toast.makeText(Onboarding.this, "Please Enter an Email", Toast.LENGTH_SHORT).show();
+        }
+        else{
+            mAuth.sendPasswordResetEmail(ForgotMail).addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                    if(task.isSuccessful()){
+                        Toast.makeText(Onboarding.this, "Check your mail", Toast.LENGTH_SHORT).show();
+                        finish();
+                    }
+                    else{
+                        Toast.makeText(Onboarding.this, "Error: "+task.getException(), Toast.LENGTH_SHORT).show();
+
+                    }
+                }
+            });
+        }
     }
 
     private void PerformLogin() {
