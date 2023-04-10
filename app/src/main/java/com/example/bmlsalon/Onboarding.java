@@ -29,8 +29,12 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.HashMap;
 
@@ -64,6 +68,8 @@ public class Onboarding extends AppCompatActivity implements View.OnClickListene
         firebaseDatabase = FirebaseDatabase.getInstance();
         databaseReference = firebaseDatabase.getReference();
 
+
+
         getstarted = findViewById(R.id.getstarted);
         videoView = findViewById(R.id.video_bg);
         logincard = findViewById(R.id.login_card);
@@ -96,22 +102,8 @@ public class Onboarding extends AppCompatActivity implements View.OnClickListene
         forgetpasscard.setOnClickListener(this);
         signupforgetpass.setOnClickListener(this);
         signupcard.setOnClickListener(this);
-        loginsignupcard.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String getName = signup_name.getText().toString();
-                String getEmail = emailsignup.getText().toString();
+        loginsignupcard.setOnClickListener(this);
 
-                HashMap<String,Object> hashMap = new HashMap<>();
-                hashMap.put("Username", getName);
-                hashMap.put("Email",getEmail);
-
-                databaseReference.child("Users")
-                        .child(getName)
-                        .setValue(hashMap);
-
-            }
-        });
         namesignup.setOnClickListener(this);
         emailsignup.setOnClickListener(this);
         phonenumber.setOnClickListener(this);
@@ -260,6 +252,9 @@ public class Onboarding extends AppCompatActivity implements View.OnClickListene
             password_login.setError("Enter Proper Password");
             Toast.makeText(Onboarding.this, "Enter Proper Password", Toast.LENGTH_SHORT).show();
         }
+
+
+
         else{
             progressDialog.setMessage("Logging in...");
             progressDialog.setTitle("Login");
@@ -289,8 +284,18 @@ public class Onboarding extends AppCompatActivity implements View.OnClickListene
         String Email = emailsignup.getText().toString();
         String password = enterpass_signup.getText().toString();
         String confirmPass = re_enterpass_signup.getText().toString();
+        String username = signup_name.getText().toString();
+        String phoneno = phonenumber.getText().toString();
 
-        if(password.isEmpty() || password.length()<6){
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        databaseReference = firebaseDatabase.getReference("users");
+
+            HelperClass helperClass = new HelperClass(username,Email,phoneno,password);
+            databaseReference.child(username).setValue(helperClass);
+
+
+
+            if(password.isEmpty() || password.length()<6){
             enterpass_signup.setError("Enter a Password minimum of length 6 digits");
             Toast.makeText(Onboarding.this,"Enter a Password minimum of length 6 digits",Toast.LENGTH_SHORT).show();
         }
