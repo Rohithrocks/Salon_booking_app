@@ -1,0 +1,53 @@
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/review_card_view"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp">
+
+        <ImageView
+            android:id="@+id/user_image_view"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:layout_alignParentStart="true"
+            android:src="@drawable/ic_baseline_person_24"/>
+
+        <TextView
+            android:id="@+id/user_name_text_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@id/user_image_view"
+            android:layout_marginStart="16dp"
+            android:text="User Name"
+            android:textSize="16sp"
+            android:textStyle="bold"/>
+
+
+        <RatingBar
+            android:id="@+id/user_rating_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/user_name_text_view"
+            android:layout_toEndOf="@id/user_image_view"
+            android:layout_marginTop="8dp"
+            android:numStars="5"
+            android:stepSize="1"/>
+
+        <TextView
+            android:id="@+id/user_review_text_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/user_rating_bar"
+            android:layout_toEndOf="@id/user_image_view"
+            android:layout_marginTop="8dp"
+            android:text="User review"
+            android:textSize="14sp"/>
+
+    </RelativeLayout>
+
+</androidx.cardview.widget.CardView>
