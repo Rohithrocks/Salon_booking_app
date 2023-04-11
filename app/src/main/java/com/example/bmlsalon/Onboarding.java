@@ -67,7 +67,7 @@ public class Onboarding extends AppCompatActivity implements View.OnClickListene
 
         firebaseDatabase = FirebaseDatabase.getInstance();
         databaseReference = firebaseDatabase.getReference();
-
+        mAuth =FirebaseAuth.getInstance();
 
 
         getstarted = findViewById(R.id.getstarted);
@@ -143,7 +143,15 @@ public class Onboarding extends AppCompatActivity implements View.OnClickListene
         });
     }
 
-
+    @Override
+    protected void onStart() {
+        super.onStart();
+        FirebaseUser user=mAuth.getCurrentUser();
+        if(user != null){
+            startActivity(new Intent(this,MainActivity.class));
+            finish();
+        }
+    }
 
 
     @Override
@@ -252,9 +260,6 @@ public class Onboarding extends AppCompatActivity implements View.OnClickListene
             password_login.setError("Enter Proper Password");
             Toast.makeText(Onboarding.this, "Enter Proper Password", Toast.LENGTH_SHORT).show();
         }
-
-
-
         else{
             progressDialog.setMessage("Logging in...");
             progressDialog.setTitle("Login");
@@ -288,11 +293,7 @@ public class Onboarding extends AppCompatActivity implements View.OnClickListene
         String phoneno = phonenumber.getText().toString();
 
         firebaseDatabase = FirebaseDatabase.getInstance();
-        databaseReference = firebaseDatabase.getReference("users");
-
-            HelperClass helperClass = new HelperClass(username,Email,phoneno,password);
-            databaseReference.child(username).setValue(helperClass);
-
+        databaseReference = firebaseDatabase.getReference();
 
 
             if(password.isEmpty() || password.length()<6){
@@ -314,8 +315,11 @@ public class Onboarding extends AppCompatActivity implements View.OnClickListene
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if(task.isSuccessful()){
+                        HelperClass helperClass = new HelperClass(username,Email,phoneno,password);
+                        databaseReference.child("users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).setValue(helperClass);
                         progressDialog.dismiss();
                         sendUserToNextActivity();
+
                         Toast.makeText(Onboarding.this, "Registration is Successful", Toast.LENGTH_SHORT).show();
                     }
                     else{

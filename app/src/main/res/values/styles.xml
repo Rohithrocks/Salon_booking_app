@@ -25,4 +25,8 @@
     </style>
 
 
+
+    <style name="SwitchCompatTheme"  parent="Theme.AppCompat.Light">
+        <item name="colorControlActivated">@color/bar</item>
+    </style>
 </resources>

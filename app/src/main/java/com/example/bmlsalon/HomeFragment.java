@@ -37,7 +37,7 @@ public class HomeFragment extends Fragment {
     FirebaseAuth mAuth;
     FirebaseDatabase database;
     TextView name;
-
+    String greetingUser;
 
     @Nullable
     @Override
@@ -45,28 +45,35 @@ public class HomeFragment extends Fragment {
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View view = binding.getRoot();
 
+        name = binding.retrivingusername;
+        mAuth = FirebaseAuth.getInstance();
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        if (currentUser != null) {
+            String emailId = currentUser.getEmail();
 
-        mAuth= FirebaseAuth.getInstance();
-        database = FirebaseDatabase.getInstance();
+            DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
+            DatabaseReference userRef = rootRef.child("users");
 
+            userRef.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                        String email = dataSnapshot.child("email").getValue(String.class);
+                        if (email != null && email.equals(emailId)) {
+                            String username = dataSnapshot.child("username").getValue(String.class);
+                            Log.d("firebase", "onDataChange: "+username);
+                            binding.retrivingusername.setText("Hey "+username+"!");
+                            break;
+                        }
+                    }
+                }
 
-
-
-//        name = binding.retrivingusername;
-//        database.getReference().child("users").child(FirebaseAuth.getInstance().getUid())
-//                .addListenerForSingleValueEvent(new ValueEventListener() {
-//                    @Override
-//                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                        HelperClass username = snapshot.getValue(HelperClass.class);
-//                        name.setText(username.getUsername());
-//                    }
-//
-//                    @Override
-//                    public void onCancelled(@NonNull DatabaseError error) {
-//
-//                    }
-//                });
-
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                    Log.e("firebase", "Error getting data: " + databaseError.getMessage());
+                }
+            });
+        }
 
 
         CircleImageView myButton = binding.menhaircut;
@@ -78,7 +85,7 @@ public class HomeFragment extends Fragment {
 
                                 Intent intent1 = new Intent(getActivity(), Mens_Haircut.class);
                                 startActivity(intent1);
-                                getActivity().overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
+                               getActivity().overridePendingTransition(R .anim.slide_in, R.anim.slide_out);
                                 break;
 
                             default:
