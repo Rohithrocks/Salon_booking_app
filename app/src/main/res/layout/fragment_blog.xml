@@ -8,7 +8,7 @@
     android:id="@+id/blog"
     >
 
-    <RelativeLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -86,16 +86,17 @@
             android:id="@+id/fab"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/add_icon"
-            android:backgroundTint="@color/white"
-            android:layout_alignParentBottom="true"
             android:layout_alignParentEnd="true"
-            />
+            android:layout_alignParentBottom="true"
+            android:backgroundTint="@color/white"
+            android:src="@drawable/add_icon"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
 
 
 
 
-    </RelativeLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
 
