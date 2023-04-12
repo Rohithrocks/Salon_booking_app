@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        tools:ignore="MissingConstraints">
+        tools:ignore="MissingClass,MissingConstraints">
 
 
     <androidx.cardview.widget.CardView
@@ -54,12 +54,167 @@
 
 
 
+
+            <devs.mulham.horizontalcalendar.HorizontalCalendarView
+                android:id="@+id/calendarView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/bar"
+                app:textColorSelected="#FFFF"/>
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="AVAILABLE SLOTS"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginBottom="15dp"
+            android:textColor="@color/black"/>
+
+
+        <GridView
+            android:id="@+id/gridView"
+            android:layout_width="match_parent"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/calendarView"
+            android:columnWidth="90dp"
+            android:gravity="center"
+            android:horizontalSpacing="16dp"
+            android:numColumns="auto_fit"
+            android:stretchMode="columnWidth"
+            android:verticalSpacing="14dp" />
+
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="180dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
+            app:cardCornerRadius="10dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+
+              <GridLayout
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:rowCount="2"
+                  android:columnCount="3"
+                  android:layout_margin="15dp">
+                  <TextView
+                      android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:text="Add: "
+                      android:textSize="20dp"
+
+                      android:textColor="@color/black"/>
+
+                  <Button
+                      android:id="@+id/beardTrimButton"
+                      android:layout_width="130dp"
+                      android:layout_marginStart="-85dp"
+                      android:layout_height="35dp"
+                      android:background="@drawable/addoncard"
+                      android:textAllCaps="false"
+                      android:text="Beard Trim - 60"/>
+                  <Button
+                      android:id="@+id/headMassageButton"
+                      android:layout_width="150dp"
+                      android:layout_height="35dp"
+                      android:layout_marginStart="5dp"
+                      android:background="@drawable/addoncard"
+                      android:textAllCaps="false"
+                      android:text="Head Massage - 120"/>
+                  <Button
+                      android:id="@+id/hairWashButton"
+                      android:layout_width="120dp"
+                      android:layout_height="35dp"
+                      android:layout_marginTop="15dp"
+                      android:layout_marginStart="15dp"
+                      android:background="@drawable/addoncard"
+                      android:textAllCaps="false"
+                      android:text="Hair Wash - 30"/>
+
+              </GridLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/black1"
+                    android:layout_marginTop="7dp"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="20dp"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_horizontal"
+                android:layout_marginTop="10dp">
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Total Price"
+                    android:textSize="24dp"
+                    android:textStyle="bold"
+                    android:layout_marginStart="23dp"
+                    android:textColor="@color/black"/>
+
+                <TextView
+                    android:id="@+id/totalPriceTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Rs. 120"
+                    android:textSize="22dp"
+                    android:textStyle="bold"
+                    android:textAlignment="textEnd"
+                    android:layout_marginEnd="30dp"
+                    android:textColor="@color/black"/>
+
+            </LinearLayout>
+
+
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+
+        <Button
+            android:id="@+id/bookbutton"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:text="BOOK APPOINTMENT"
+            android:textColor="@color/white"
+            android:background="@drawable/bookappontmentbutton"
+            android:textSize="20dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginTop="20dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Click on Book Appointment to continue with payment mode"
+            android:layout_marginTop="5dp"
+            android:textAlignment="center"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"/>
+
+
+
+
         </LinearLayout>
-
-
-
-
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

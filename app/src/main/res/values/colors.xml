@@ -9,6 +9,7 @@
     <color name="black2">#787878</color>
     <color name="black1">#D8D7D7</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="white1">#C6C6C6</color>
     <color name="bar">#A020F0</color>
     <color name="colorEdittext">#14000000</color>
 </resources>

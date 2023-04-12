@@ -20,7 +20,9 @@
             android:id="@+id/profileimg"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:src="@drawable/profile"/>
+            android:src="@drawable/profile"
+            android:clickable="true"
+            android:focusable="true"/>
 
 
     </androidx.cardview.widget.CardView>
