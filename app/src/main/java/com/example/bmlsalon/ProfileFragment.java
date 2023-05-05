@@ -2,6 +2,7 @@ package com.example.bmlsalon;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -16,18 +17,27 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.provider.MediaStore;
+import android.text.TextUtils;
 import android.transition.Transition;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.CustomTarget;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.example.bmlsalon.databinding.FragmentProfileBinding;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.AuthCredential;
+import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -43,7 +53,7 @@ public class ProfileFragment extends Fragment {
     private @NonNull
     FragmentProfileBinding binding;
 
-    TextView Username, email, logout;
+    TextView Username, email, logout, callprofile;
     FirebaseAuth mAuth;
     private CircleImageView circleImageView;
 
@@ -52,6 +62,9 @@ public class ProfileFragment extends Fragment {
 
     private FirebaseStorage firebaseStorage;
     private StorageReference storageReference;
+    ProgressDialog pd;
+    FirebaseAuth firebaseAuth;
+
 
 
     @Nullable
@@ -60,6 +73,7 @@ public class ProfileFragment extends Fragment {
         binding = FragmentProfileBinding.inflate(inflater, container, false);
         View view = binding.getRoot();
 
+        callprofile = view.findViewById(R.id.call_profile);
 
         mAuth = FirebaseAuth.getInstance();
 
@@ -113,6 +127,15 @@ public class ProfileFragment extends Fragment {
         email.setText(MainActivity.emailId, TextView.BufferType.EDITABLE);
         Log.d("TEST", " onCreateView: "+MainActivity.userName);
 
+        callprofile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Intent.ACTION_DIAL);
+                intent.setData(Uri.parse("tel:7288918840"));
+                startActivity(intent);
+            }
+        });
+
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -144,6 +167,44 @@ public class ProfileFragment extends Fragment {
 
         return view;
 }
+
+    private void updatePassword(String oldPassword, String newPassword) {
+        pd.show();
+
+        FirebaseUser user = firebaseAuth.getCurrentUser();
+
+        AuthCredential authCredential = EmailAuthProvider.getCredential(user.getEmail(),oldPassword);
+        user.reauthenticate(authCredential)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void unused) {
+                        user.updatePassword(newPassword)
+                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void unused) {
+                                        pd.dismiss();
+                                        Toast.makeText(getActivity(),"Password Updated...",Toast.LENGTH_SHORT).show();
+                                    }
+                                })
+                                .addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        pd.dismiss();
+                                        Toast.makeText(getActivity(),""+e.getMessage(),Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        pd.dismiss();
+                        Toast.makeText(getActivity(),""+e.getMessage(),Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+    }
 
     // Method to show image picker dialog or camera
     private void showImagePickerDialog() {
