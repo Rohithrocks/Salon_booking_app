@@ -1,103 +1,39 @@
-<?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".BlogFragment"
-    android:id="@+id/blog"
-    >
+    android:layout_height="match_parent">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <!-- Add the header box -->
+    <FrameLayout
+        android:id="@+id/header_box"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-
-    <!--    <TextView-->
-    <!--        android:layout_width="match_parent"-->
-    <!--        android:layout_height="match_parent"-->
-    <!--        android:text="Blog"-->
-    <!--        android:textSize="50dp" />-->
-
-    <androidx.cardview.widget.CardView
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:orientation="vertical"
-        android:layout_height="55dp"
-        app:cardBackgroundColor="@color/bar"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
-
+        android:layout_height="wrap_content"
+        android:background="#A020F0"
+        android:padding="16dp"
+        android:layout_alignParentTop="true">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/testimonials"
-            android:textAlignment="textStart"
+            android:text="Service Reviews"
+            android:textColor="#FFFFFF"
             android:textSize="24sp"
-            android:textColor="@color/white"
-            android:layout_marginTop="15dp"
-            android:layout_marginStart="22dp"
-            />
+            android:textStyle="bold" />
+    </FrameLayout>
 
-    </androidx.cardview.widget.CardView>
-<!--    <TextView-->
-<!--        android:id="@+id/addreview1"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:text="@string/testimonials"-->
+    <!-- Add the RecyclerView -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/service_review_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/header_box" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:src="@drawable/add_icon"
+        android:contentDescription="@string/add_review" />
 
-<!--    <androidx.cardview.widget.CardView-->
-<!--        android:id="@+id/review_card"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/toolbar"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintEnd_toEndOf="parent">-->
-
-<!--        <androidx.constraintlayout.widget.ConstraintLayout-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content">-->
-
-
-<!--          -->
-
-
-<!--        </androidx.constraintlayout.widget.ConstraintLayout>-->
-
-<!--    </androidx.cardview.widget.CardView>-->
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
-
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fab"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentBottom="true"
-            android:backgroundTint="@color/white"
-            android:src="@drawable/add_icon"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
-
-
-
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-
-</ScrollView>
+</RelativeLayout>

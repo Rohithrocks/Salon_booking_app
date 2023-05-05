@@ -11,7 +11,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.FrameLayout;
+import android.widget.ListView;
+import android.widget.SearchView;
 import android.widget.TextView;
 
 import com.denzcoskun.imageslider.ImageSlider;
@@ -33,17 +36,64 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class HomeFragment extends Fragment {
     private FragmentHomeBinding binding;
-
+//    SearchView searchView;
+//    ListView myListView;
     FirebaseAuth mAuth;
     FirebaseDatabase database;
     TextView name;
     String greetingUser;
+
+    ArrayList<String> arrayList;
+    ArrayAdapter<String> adapter;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View view = binding.getRoot();
+
+//        searchView = binding.searchView;
+//        myListView = binding.listView;
+
+//        myListView.setVisibility(View.GONE);
+
+//        arrayList = new ArrayList<>();
+//        arrayList.add("Men's- Haircut");
+//        arrayList.add("Men's- Beard Trims");
+//        arrayList.add("Men's- Hair Wash");
+//        arrayList.add("Men's- Hair Color");
+//        arrayList.add("Men's- Hair Massage");
+//        arrayList.add("Men's- Facial");
+//        arrayList.add("Women's- Haircut");
+//        arrayList.add("Women's- Hair Color");
+//        arrayList.add("Women's- Hair Washing");
+//        arrayList.add("Women's- Eyebrow");
+//        arrayList.add("Women's- Waxing");
+//        arrayList.add("Women's- Pedicures");
+//        arrayList.add("Women's- Manicures");
+//        arrayList.add("Women's- Facials");
+//        arrayList.add("Women's- Hair Styling");
+
+//        adapter =new ArrayAdapter<>(getContext() ,android.R.layout.simple_list_item_1,arrayList);
+//        myListView.setAdapter(adapter);
+//
+//        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+//            @Override
+//            public boolean onQueryTextSubmit(String s) {
+//                return false;
+//            }
+//
+//            @Override
+//            public boolean onQueryTextChange(String s) {
+//                myListView.setVisibility(View.VISIBLE);
+//                adapter.getFilter().filter(s);
+//                return false;
+//            }
+//        });
+
+
+
+
 
         name = binding.retrivingusername;
         mAuth = FirebaseAuth.getInstance();

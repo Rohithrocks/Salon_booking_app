@@ -30,4 +30,7 @@
     <string name="go_back">Go Back</string>
     <string name="send_push_notifications">Send push notifications</string>
     <string name="testimonials">Testimonials</string>
+    <string name="add_service_review">Servcie</string>
+    <string name="add_your_review">Add Your Review</string>
+    <string name="add_review">reviewaddbutton</string>
 </resources>

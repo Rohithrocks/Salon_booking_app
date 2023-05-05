@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:outlineAmbientShadowColor="@color/black"
+    >
+
+
+    <TextView
+        android:id="@+id/user_email_text_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="User Email"
+        android:textSize="20dp"
+        />
+
+    <TextView
+        android:id="@+id/selected_service_label_text_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Selected Service:" />
+
+    <TextView
+        android:id="@+id/selected_service_text_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="" />
+
+    <TextView
+        android:id="@+id/comment_label_text_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Comment:" />
+
+    <TextView
+        android:id="@+id/comment_text_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="" />
+
+    <TextView
+        android:id="@+id/review_label_text_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Review:" />
+
+    <TextView
+        android:id="@+id/review_text_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="" />
+
+</LinearLayout>

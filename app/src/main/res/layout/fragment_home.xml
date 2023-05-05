@@ -54,8 +54,9 @@
             android:layout_marginEnd="20dp"
             android:iconifiedByDefault="false"
             android:layout_alignParentTop="true"
-            android:queryBackground="@color/white"
-            />
+            android:queryBackground="@color/white">
+
+        </SearchView>
 
 
 
