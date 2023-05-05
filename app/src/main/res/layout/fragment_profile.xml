@@ -79,11 +79,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Chittepu Rohith Reddy"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="25dp"
                     android:textStyle="bold"
                     android:textColor="@color/black"
                     android:layout_marginStart="180dp"
-                    android:textSize="15dp"
+                    android:textSize="20dp"
                     android:textAllCaps="true"/>
 
                 <TextView
@@ -253,6 +253,7 @@
 
 
                     <TextView
+                        android:id="@+id/change_password"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Change password"
@@ -262,6 +263,7 @@
                         android:textColor="@color/black2"/>
 
                     <TextView
+                        android:id="@+id/change_pass_arrow"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
 
@@ -314,6 +316,7 @@
 
 
                     <TextView
+                        android:id="@+id/call_profile"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Call us"
